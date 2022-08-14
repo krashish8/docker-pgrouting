@@ -48,6 +48,8 @@ for version in "${versions[@]}"; do
     pgroutingFullVersion="$pgroutingVersion"
     if [ "$pgroutingVersion" != "develop" ] && [ "$pgroutingVersion" != "main" ]; then
         pgroutingFullVersion="$(git ls-remote --refs --sort='v:refname' https://github.com/pgrouting/pgrouting.git | grep -F "$pgroutingVersion" | cut --delimiter='/' --fields=3 | tail -n 1)"
+        # Convert vA.B.C to A.B.C
+        pgroutingFullVersion="${pgroutingFullVersion:1}"
     fi
 
     echo " "
