@@ -45,7 +45,7 @@ for version in "${versions[@]}"; do
     IFS=- read postgresVersion postgisVersion pgroutingVersion <<< "$version"
 
     # Extract the latest patch release for a given major.minor release (unchanged for main/develop version)
-    pgroutingFullVersion="$pgRoutingVersion"
+    pgroutingFullVersion="$pgroutingVersion"
     if [ "$pgroutingVersion" != "develop" ] && [ "$pgroutingVersion" != "master" ]; then
         pgroutingFullVersion="$(git ls-remote --refs --sort='v:refname' https://github.com/pgrouting/pgrouting.git | grep -F "$pgroutingVersion" | cut --delimiter='/' --fields=3 | tail -n 1)"
     fi
@@ -79,13 +79,13 @@ for version in "${versions[@]}"; do
             cp -p Dockerfile.develop.template "$version/Dockerfile.template"
         fi
         mv "$version/Dockerfile.template" "$version/Dockerfile"
-        sed -i 's/%%PG_MAJOR%%/'"$postgresVersion"'/g; s/%%POSTGIS_VERSION%%/'"$postgisVersion"'/g; s/%%PGROUTING_VERSION%%/'"$pgroutingVersion"'/g; s/%%PGROUTING_FULL_VERSION%%/'"$pgroutingFullVersion"'/g; s/%%PGROUTING_SHA256%%/'"$srcSha256"'/g; s/%%PGROUTING_GIT_HASH%%/'"$pgroutingGitHash"'/g; s/%%BOOST_VERSION%%/'"$boostVersion"'/g; ' "$version/Dockerfile"
+        sed -i 's/%%PG_MAJOR%%/'"$postgresVersion"'/g; s/%%POSTGIS_VERSION%%/'"$postgisVersion"'/g; s/%%PGROUTING_VERSION%%/'"$pgroutingVersion"'/g; s/%%PGROUTING_FULL_VERSION%%/'"$pgroutingFullVersion"'/g; s/%%PGROUTING_SHA256%%/'"$srcSha256"'/g; s/%%PGROUTING_GIT_HASH%%/'"$pgroutingGitHash"'/g; ' "$version/Dockerfile"
         mv "$version/README.md.template" "$version/README.md"
         sed -i 's/%%PG_MAJOR%%/'"$postgresVersion"'/g; s/%%POSTGIS_VERSION%%/'"$postgisVersion"'/g; s/%%PGROUTING_VERSION%%/'"$pgroutingVersion"'/g; s/%%PGROUTING_FULL_VERSION%%/'"$pgroutingFullVersion"'/g;' "$version/README.md"
         mv "$version/docker-compose.yml.template" "$version/docker-compose.yml"
         sed -i 's/%%PG_MAJOR%%/'"$postgresVersion"'/g; s/%%POSTGIS_VERSION%%/'"$postgisVersion"'/g; s/%%PGROUTING_VERSION%%/'"$pgroutingVersion"'/g; s/%%PGROUTING_FULL_VERSION%%/'"$pgroutingFullVersion"'/g;' "$version/docker-compose.yml"
 
-        echo "| [pgrouting/pgrouting:${version}](${dockerhublink}${version}) | [Dockerfile](${githubrepolink}/${version}/Dockerfile) | ${postgresVersion} | ${postgisVersion} | ${pgroutingFullVersion} |" >> _dockerlists_general.md
+        echo "| [pgrouting/pgrouting:${version}](${dockerhublink}${version}) | [Dockerfile](${githubrepolink}/${version}/Dockerfile) | ${postgresVersion} | ${postgisVersion} | ${pgroutingFullVersion} |" >> _dockerlists_default.md
 
         mv "$version/extra/Dockerfile.template" "$version/extra/Dockerfile"
         sed -i 's/%%PG_MAJOR%%/'"$postgresVersion"'/g; s/%%POSTGIS_VERSION%%/'"$postgisVersion"'/g; s/%%PGROUTING_VERSION%%/'"$pgroutingVersion"'/g; s/%%PGROUTING_FULL_VERSION%%/'"$pgroutingFullVersion"'/g;' "$version/extra/Dockerfile"
