@@ -3,3 +3,6 @@
 
 # exclude osm data files
 *.osm
+
+# exclude the markdown files containing info of generated images
+_*

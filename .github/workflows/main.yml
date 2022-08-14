@@ -1,0 +1,66 @@
+name: Docker pgRouting CI
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '15 5 * * 1'
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+
+  make-docker-images:
+    strategy:
+      matrix:
+        postgres: [11, 12, 13, 14]
+        postgis: ['3.2']
+        pgrouting: ['3.0', '3.1', '3.2', '3.3', 'master', 'develop']
+        exclude:
+          - postgres: 11
+            postgis: '3.2'
+            pgrouting: 'master'
+          - postgres: 11
+            postgis: '3.2'
+            pgrouting: 'develop'
+        include:
+          - postgres: 10
+            postgis: '2.5'
+            pgrouting: 'master'
+          - postgres: 10
+            postgis: '2.5'
+            pgrouting: 'develop'
+          - postgres: 11
+            postgis: '2.5'
+            pgrouting: 'master'
+          - postgres: 11
+            postgis: '2.5'
+            pgrouting: 'develop'
+
+    name: Build docker image for ${{ matrix.postgres }}-${{ matrix.postgis }}-${{ matrix.pgrouting }}
+    runs-on: ubuntu-20.04
+    env:
+      VERSION: ${{ matrix.postgres }}-${{ matrix.postgis }}-${{ matrix.pgrouting }}
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v2
+
+    - name: Build docker image for ${{ env.VERSION }}
+      run: make test
+
+    # - name: Login to dockerhub
+    #   uses: docker/login-action@v1
+    #   if: ${{  (github.ref == 'refs/heads/master') && (github.event_name != 'pull_request')  }}
+    #   with:
+    #     username: ${{ secrets.DOCKERHUB_USERNAME }}
+    #     password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
+
+    # - name: Push docker image to dockerhub
+    #   if: ${{  (github.ref == 'refs/heads/master') && (github.event_name != 'pull_request')  }}
+    #   env:
+    #     DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+    #     DOCKERHUB_ACCESS_TOKEN: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
+    #   run: make push
