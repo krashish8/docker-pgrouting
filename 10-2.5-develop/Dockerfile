@@ -3,23 +3,14 @@ FROM postgis/postgis:10-2.5
 LABEL maintainer="pgRouting Project - https://pgrouting.net"
 
 ENV PGROUTING_VERSION develop
-ENV PGROUTING_GIT_HASH fb48e16f2d3c0f11060d58fc8be36e9325db2f59
+ENV PGROUTING_GIT_HASH d2a4ab3cdac0d2ec1faad28783042b2ee10ef720
 
 RUN apt update \
- && apt install -y \
-        libboost-atomic1.62.0 \
-        libboost-chrono1.62.0 \
-        libboost-graph1.62.0 \
-        libboost-date-time1.62.0 \
-        libboost-program-options1.62.0 \
-        libboost-system1.62.0 \
-        libboost-thread1.62.0 \
-        libcgal12 \
- && apt install -y \
+ && apt install -y --no-install-recommends \
         build-essential \
+        ca-certificates \
         cmake \
         libboost-graph-dev \
-        libcgal-dev \
         libpq-dev \
         postgresql-server-dev-${PG_MAJOR} \
         git \
@@ -39,10 +30,12 @@ RUN apt update \
  && apt purge -y --autoremove \
         build-essential \
         cmake \
-        libcgal-dev \
         libpq-dev \
         libboost-graph-dev \
         postgresql-server-dev-${PG_MAJOR} \
         git \
  && rm -rf /var/lib/apt/lists/*
 RUN rm /docker-entrypoint-initdb.d/10_postgis.sh
+
+COPY ./initdb-pgrouting.sh /docker-entrypoint-initdb.d/pgrouting.sh
+COPY ./update-pgrouting.sh /usr/local/bin

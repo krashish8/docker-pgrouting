@@ -3,10 +3,9 @@ FROM pgrouting/pgrouting:10-2.5-develop
 ENV OSM2PGROUTING_VERSION 2.3.7
 
 RUN apt update \
- && apt install -y \
-        libpqxx-4.0v5 \
- && apt install -y \
+ && apt install -y --no-install-recommends \
         build-essential \
+        ca-certificates \
         cmake \
         wget \
         libboost-program-options-dev \

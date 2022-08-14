@@ -6,20 +6,11 @@ ENV PGROUTING_VERSION master
 ENV PGROUTING_GIT_HASH 
 
 RUN apt update \
- && apt install -y \
-        libboost-atomic1.62.0 \
-        libboost-chrono1.62.0 \
-        libboost-graph1.62.0 \
-        libboost-date-time1.62.0 \
-        libboost-program-options1.62.0 \
-        libboost-system1.62.0 \
-        libboost-thread1.62.0 \
-        libcgal12 \
- && apt install -y \
+ && apt install -y --no-install-recommends \
         build-essential \
+        ca-certificates \
         cmake \
         libboost-graph-dev \
-        libcgal-dev \
         libpq-dev \
         postgresql-server-dev-${PG_MAJOR} \
         git \
@@ -39,10 +30,12 @@ RUN apt update \
  && apt purge -y --autoremove \
         build-essential \
         cmake \
-        libcgal-dev \
         libpq-dev \
         libboost-graph-dev \
         postgresql-server-dev-${PG_MAJOR} \
         git \
  && rm -rf /var/lib/apt/lists/*
 RUN rm /docker-entrypoint-initdb.d/10_postgis.sh
+
+COPY ./initdb-pgrouting.sh /docker-entrypoint-initdb.d/pgrouting.sh
+COPY ./update-pgrouting.sh /usr/local/bin
