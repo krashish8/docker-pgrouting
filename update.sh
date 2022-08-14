@@ -46,7 +46,7 @@ for version in "${versions[@]}"; do
 
     # Extract the latest patch release for a given major.minor release (unchanged for main/develop version)
     pgroutingFullVersion="$pgroutingVersion"
-    if [ "$pgroutingVersion" != "develop" ] && [ "$pgroutingVersion" != "master" ]; then
+    if [ "$pgroutingVersion" != "develop" ] && [ "$pgroutingVersion" != "main" ]; then
         pgroutingFullVersion="$(git ls-remote --refs --sort='v:refname' https://github.com/pgrouting/pgrouting.git | grep -F "$pgroutingVersion" | cut --delimiter='/' --fields=3 | tail -n 1)"
     fi
 
@@ -65,7 +65,7 @@ for version in "${versions[@]}"; do
     suite="${tag%%-slim}"
 
     srcVersion="${pgroutingFullVersion}"
-    if [ "$pgroutingFullVersion" == "develop" ] || [ "$pgroutingFullVersion" == "master" ]; then
+    if [ "$pgroutingFullVersion" == "develop" ] || [ "$pgroutingFullVersion" == "main" ]; then
         srcSha256=""
         pgroutingGitHash="$(git ls-remote https://github.com/pgrouting/pgrouting.git heads/${pgroutingFullVersion} | awk '{ print $1}')"
     else
@@ -75,7 +75,7 @@ for version in "${versions[@]}"; do
     (
         set -x
         cp -p -r Dockerfile.template README.md.template docker-compose.yml.template extra "$version/"
-        if [ "$pgroutingFullVersion" == "develop" ] || [ "$pgroutingFullVersion" == "master" ]; then
+        if [ "$pgroutingFullVersion" == "develop" ] || [ "$pgroutingFullVersion" == "main" ]; then
             cp -p Dockerfile.develop.template "$version/Dockerfile.template"
         fi
         mv "$version/Dockerfile.template" "$version/Dockerfile"
