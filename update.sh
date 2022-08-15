@@ -76,6 +76,7 @@ for version in "${versions[@]}"; do
     fi
     (
         set -x
+        cp -p initdb-pgrouting.sh update-pgrouting.sh "$version/"
         cp -p -r Dockerfile.template README.md.template docker-compose.yml.template extra "$version/"
         if [ "$pgroutingFullVersion" == "develop" ] || [ "$pgroutingFullVersion" == "main" ]; then
             cp -p Dockerfile.develop.template "$version/Dockerfile.template"
