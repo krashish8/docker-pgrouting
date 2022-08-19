@@ -77,11 +77,11 @@ update:
 define build-version
 build-$1:
 ifeq ($(do_default),true)
-	$(DOCKER) build --pull -t $(REPO_NAME)/$(IMAGE_NAME):$(shell echo $1) $1
+	$(DOCKER) build -t $(REPO_NAME)/$(IMAGE_NAME):$(shell echo $1) $1
 endif
 ifeq ($(do_osm2pgr),true)
 ifneq ("$(wildcard $1/extra)","")
-	$(DOCKER) build --pull -t $(REPO_NAME)/$(IMAGE_NAME):$(shell echo $1)-osm2pgr $1/extra
+	$(DOCKER) build -t $(REPO_NAME)/$(IMAGE_NAME):$(shell echo $1)-osm2pgr $1/extra
 endif
 endif
 endef
