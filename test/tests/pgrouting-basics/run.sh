@@ -35,5 +35,5 @@ while ! echo 'SELECT 1' | psql &> /dev/null; do
 	sleep 2
 done
 
-echo 'SELECT pgRouting_Version()' | psql
+echo 'SELECT pgr_version()' | psql
 
