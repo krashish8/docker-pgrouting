@@ -54,7 +54,7 @@ endif
 
 # The repository and image names default to the official but can be overriden
 # via environment variables.
-REPO_NAME  ?= pgrouting
+REPO_NAME  ?= krashish8
 IMAGE_NAME ?= pgrouting
 
 DOCKER=docker

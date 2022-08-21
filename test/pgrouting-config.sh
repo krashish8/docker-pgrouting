@@ -1,5 +1,5 @@
-testAlias[pgrouting/pgrouting]=postgres
+testAlias[krashish8/pgrouting]=postgres
 
-imageTests[pgrouting/pgrouting]='
+imageTests[krashish8/pgrouting]='
 	pgrouting-basics
 '

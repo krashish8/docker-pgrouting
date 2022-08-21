@@ -17,8 +17,8 @@ for image in default osm2pgr; do
     echo "| --------------- | ---------- | -- | -------- | ------- | --------- |" >> _dockerlists_${image}.md
 done
 
-dockerhublink="https://hub.docker.com/r/pgrouting/pgrouting/tags?page=1&name="
-githubrepolink="https://github.com/pgRouting/docker-pgrouting/blob/master"
+dockerhublink="https://hub.docker.com/r/krashish8/pgrouting/tags?page=1&name="
+githubrepolink="https://github.com/krashish8/docker-pgrouting/blob/master"
 
 # sort version numbers with highest last (so it goes first in .travis.yml)
 IFS=$'\n'; versions=( $(echo "${versions[*]}" | sort -V) ); unset IFS
