@@ -1,4 +1,4 @@
-testAlias[pgrouting/pgrouting]=pgrouting/pgrouting
+testAlias[pgrouting/pgrouting]=postgis/postgis
 
 imageTests[pgrouting/pgrouting]='
 	pgrouting-basics
