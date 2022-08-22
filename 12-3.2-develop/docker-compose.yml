@@ -1,7 +1,7 @@
 version: "3"
 services:
   pgrouting:
-    image: pgrouting/pgrouting:12-3.2-develop
+    image: krashish8/pgrouting:12-3.2-develop
     ports:
       - "5432:5432"
     volumes:
