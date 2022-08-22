@@ -88,12 +88,12 @@ for version in "${versions[@]}"; do
         mv "$version/docker-compose.yml.template" "$version/docker-compose.yml"
         sed -i 's/%%PG_MAJOR%%/'"$postgresVersion"'/g; s/%%POSTGIS_VERSION%%/'"$postgisVersion"'/g; s/%%PGROUTING_VERSION%%/'"$pgroutingVersion"'/g; s/%%PGROUTING_FULL_VERSION%%/'"$pgroutingFullVersion"'/g;' "$version/docker-compose.yml"
 
-        echo "| [pgrouting/pgrouting:${version}](${dockerhublink}${version}) | [Dockerfile](${githubrepolink}/${version}/Dockerfile) | ${postgresVersion} | ${postgisVersion} | ${pgroutingFullVersion} |" >> _dockerlists_default.md
+        echo "| [krashish8/pgrouting:${version}](${dockerhublink}${version}) | [Dockerfile](${githubrepolink}/${version}/Dockerfile) | ${postgresVersion} | ${postgisVersion} | ${pgroutingFullVersion} |" >> _dockerlists_default.md
 
         mv "$version/extra/Dockerfile.template" "$version/extra/Dockerfile"
         sed -i 's/%%PG_MAJOR%%/'"$postgresVersion"'/g; s/%%POSTGIS_VERSION%%/'"$postgisVersion"'/g; s/%%PGROUTING_VERSION%%/'"$pgroutingVersion"'/g; s/%%PGROUTING_FULL_VERSION%%/'"$pgroutingFullVersion"'/g;' "$version/extra/Dockerfile"
     
-        echo "| [pgrouting/pgrouting:${version}-osm2pgr](${dockerhublink}${version}-osm2pgr) | [Dockerfile](${githubrepolink}/${version}/extra/Dockerfile) | ${postgresVersion} | ${postgisVersion} | ${pgroutingFullVersion} |" >> _dockerlists_osm2pgr.md
+        echo "| [krashish8/pgrouting:${version}-osm2pgr](${dockerhublink}${version}-osm2pgr) | [Dockerfile](${githubrepolink}/${version}/extra/Dockerfile) | ${postgresVersion} | ${postgisVersion} | ${pgroutingFullVersion} |" >> _dockerlists_osm2pgr.md
     )
 done
 

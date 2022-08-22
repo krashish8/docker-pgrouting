@@ -1,4 +1,4 @@
-FROM pgrouting/pgrouting:12-3.2-main
+FROM krashish8/pgrouting:12-3.2-main
 
 ENV OSM2PGROUTING_VERSION 2.3.7
 
